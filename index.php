@@ -24,7 +24,7 @@
                 </ul>
             </nav>
         </header>
-        
+
         <!-- QUESTION 1 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 1</h2>
@@ -37,9 +37,68 @@
             </p>
             <div class="exercice-sandbox">
                 
+                <?php
+                class Student
+                {
+                    public string $lastname;
+                    public string $firstname;
+                    public int $age;
+                    public string $lvlSchool;
+
+                    public function __construct(string $lastname, string $firstname, int $age, string $lvlSchool)
+                    {
+                        $this->lastname = $lastname;
+                        $this->firstname = $firstname;
+                        $this->age = $age;
+                        $this->lvlSchool = $lvlSchool;
+                    }
+
+                    public function getLastname(): string
+                    {
+                        return $this->lastname;
+                    }
+                    public function setLastname(string $lastname): void
+                    {
+                        $this->lastname = $lastname;
+                    }
+
+                    public function getFirstname(): string
+                    {
+                        return $this->firstname;
+                    }
+                    public function setFirstname(string $firstname): void
+                    {
+                        $this->firstname = $firstname;
+                    }
+
+                    public function getAge(): int
+                    {
+                        return $this->age;
+                    }
+                    public function setAge(int $age): void
+                    {
+                        $this->age = $age;
+                    }
+
+                    public function getLvlSchool(): string
+                    {
+                        return $this->lvlSchool;
+                    }
+                    public function setLvlSchool(string $lvlSchool): void
+                    {
+                        $this->lvlSchool = $lvlSchool;
+                    }
+                }
+
+                $p1 = new Student("Plouploux", "Stanislas", 17, "BAC ES");
+                $p2 = new Student("Super", "Man", 35, "BAC L");
+
+                var_dump($p1, $p2);
+                ?>
+
             </div>
         </section>
-        
+
         <!-- QUESTION 2 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 2</h2>
@@ -49,10 +108,18 @@
                 Modifier le niveau scolaire des 2 élèves et les afficher.
             </p>
             <div class="exercice-sandbox">
-                
+
+                <?php
+                $p1->setLvlSchool('CM2');
+                echo $p1->getLvlSchool() . "<br>";
+
+                $p2->setLvlSchool('BEP');
+                echo $p2->getLvlSchool();
+                ?>
+
             </div>
         </section>
-        
+
         <!-- QUESTION 3 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 3</h2>
@@ -62,10 +129,10 @@
                 Mettez à jour l'instanciation des 2 élèves et afficher leur date de naissance.
             </p>
             <div class="exercice-sandbox">
-                
+
             </div>
         </section>
-        
+
         <!-- QUESTION 4 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 4</h2>
@@ -75,10 +142,10 @@
                 Afficher l'âge des 2 élèves.
             </p>
             <div class="exercice-sandbox">
-                
+
             </div>
         </section>
-        
+
         <!-- QUESTION 5 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 5</h2>
@@ -88,10 +155,10 @@
                 Ajouter la propriété et ajouter la donnée sur les élèves.
             </p>
             <div class="exercice-sandbox">
-                
+
             </div>
         </section>
-        
+
         <!-- QUESTION 6 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 6</h2>
@@ -102,11 +169,12 @@
                 Afficher la phrase de présentation des 2 élèves.
             </p>
             <div class="exercice-sandbox">
-                
+
             </div>
         </section>
 
     </div>
     <div class="copyright">© Guillaume Belleuvre, 2022 - DWWM Le Havre</div>
 </body>
+
 </html>
