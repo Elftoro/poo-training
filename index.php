@@ -36,20 +36,21 @@
                 Créer 2 étudiants différents.
             </p>
             <div class="exercice-sandbox">
-                
+
                 <?php
                 class Student
                 {
-                    public string $lastname;
-                    public string $firstname;
-                    public int $age;
-                    public string $lvlSchool;
+                    private string $lastname;
+                    private string $firstname;
+                    // private int $age;
+                    private DateTime $birthDate;
+                    private string $lvlSchool;
 
-                    public function __construct(string $lastname, string $firstname, int $age, string $lvlSchool)
+                    public function __construct(string $lastname, string $firstname, DateTime $birthDate, string $lvlSchool)
                     {
                         $this->lastname = $lastname;
                         $this->firstname = $firstname;
-                        $this->age = $age;
+                        $this->birthDate = $birthDate;
                         $this->lvlSchool = $lvlSchool;
                     }
 
@@ -71,13 +72,13 @@
                         $this->firstname = $firstname;
                     }
 
-                    public function getAge(): int
+                    public function getBirthDate(): DateTime
                     {
-                        return $this->age;
+                        return $this->birthDate;
                     }
-                    public function setAge(int $age): void
+                    public function setBirthDate(DateTime $birthDate): void
                     {
-                        $this->age = $age;
+                        $this->birthDate = $birthDate;
                     }
 
                     public function getLvlSchool(): string
@@ -90,8 +91,11 @@
                     }
                 }
 
-                $p1 = new Student("Plouploux", "Stanislas", 17, "BAC ES");
-                $p2 = new Student("Super", "Man", 35, "BAC L");
+                $bDp1 = new DateTime("1992-06-05");
+                $bDp2 = new DateTime("1996-09-13");
+
+                $p1 = new Student("Plouploux", "Stanislas", $bDp1, "BAC ES");
+                $p2 = new Student("Super", "Man", $bDp2, "BAC L");
 
                 var_dump($p1, $p2);
                 ?>
@@ -130,6 +134,16 @@
             </p>
             <div class="exercice-sandbox">
 
+            <?php
+            
+            // echo $bDp1->format("Y-m-d") . "<br>";
+            // echo $bDp2->format("Y-m-d");
+            
+            echo $p1->getBirthDate()->format("Y-m-d"). "<br>";
+            echo $p2->getBirthDate()->format("Y-m-d");
+
+            ?>
+
             </div>
         </section>
 
@@ -142,6 +156,17 @@
                 Afficher l'âge des 2 élèves.
             </p>
             <div class="exercice-sandbox">
+
+            <?php
+
+            $date = new DateTime();
+            $bDp1 = new DateTime("1992-06-05");
+            $diff = date_diff($date, $bDp1);
+
+
+
+
+            ?>
 
             </div>
         </section>
