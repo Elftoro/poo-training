@@ -97,6 +97,10 @@
                     public function setSchoolName(string $schoolName):void {
                         $this->schoolName = $schoolName;
                     }
+
+                    public function getText():string {
+                    return "Bonjour, je m'appelle ".$this->firstname." j'ai ".$this->gimmeYourAge()." ans et je vais à l'école ".$this->getSchoolName()." en class de " .$this->getLvlSchool();
+                    }
                 }
 
                 $bDp1 = new DateTime("1992-06-05");
@@ -125,7 +129,7 @@
                 $p1->setLvlSchool('CM2');
                 echo $p1->getLvlSchool() . "<br>";
 
-                $p2->setLvlSchool('BEP');
+                $p2->setLvlSchool('Neige');
                 echo $p2->getLvlSchool();
                 ?>
 
@@ -192,6 +196,13 @@
             </p>
             <div class="exercice-sandbox">
 
+            <?php
+            
+            echo $p1->getSchoolName(). "<br>";
+            echo $p2->getSchoolName()
+
+            ?>
+
             </div>
         </section>
 
@@ -205,6 +216,14 @@
                 Afficher la phrase de présentation des 2 élèves.
             </p>
             <div class="exercice-sandbox">
+
+            <?php
+
+                echo $p1->getText(). "<br>";
+                echo $p2->getText();
+            
+
+            ?>
 
             </div>
         </section>
