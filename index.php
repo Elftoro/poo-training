@@ -45,17 +45,18 @@
                     // private int $age;
                     private DateTime $birthDate;
                     private string $lvlSchool;
+                    private string $schoolName;
 
-                    public function __construct(string $lastname, string $firstname, DateTime $birthDate, string $lvlSchool)
+                    public function __construct(string $lastname, string $firstname, DateTime $birthDate, string $lvlSchool, string $schoolName)
                     {
                         $this->lastname = $lastname;
                         $this->firstname = $firstname;
                         $this->birthDate = $birthDate;
                         $this->lvlSchool = $lvlSchool;
+                        $this->schoolName = $schoolName;
                     }
 
-                    public function getLastname(): string
-                    {
+                    public function getLastname(): string {
                         return $this->lastname;
                     }
                     public function setLastname(string $lastname): void
@@ -63,17 +64,14 @@
                         $this->lastname = $lastname;
                     }
 
-                    public function getFirstname(): string
-                    {
+                    public function getFirstname(): string {
                         return $this->firstname;
                     }
-                    public function setFirstname(string $firstname): void
-                    {
+                    public function setFirstname(string $firstname): void {
                         $this->firstname = $firstname;
                     }
 
-                    public function getBirthDate(): DateTime
-                    {
+                    public function getBirthDate(): DateTime {
                         return $this->birthDate;
                     }
                     public function setBirthDate(DateTime $birthDate): void
@@ -81,21 +79,31 @@
                         $this->birthDate = $birthDate;
                     }
 
-                    public function getLvlSchool(): string
-                    {
+                    public function getLvlSchool(): string {
                         return $this->lvlSchool;
                     }
                     public function setLvlSchool(string $lvlSchool): void
                     {
                         $this->lvlSchool = $lvlSchool;
                     }
+
+                    public function gimmeYourAge():int {
+                        return $this->birthDate->diff(new DateTime())->format("%Y");
+                    }
+
+                    public function getSchoolName():string {
+                        return $this->schoolName;
+                    }
+                    public function setSchoolName(string $schoolName):void {
+                        $this->schoolName = $schoolName;
+                    }
                 }
 
                 $bDp1 = new DateTime("1992-06-05");
                 $bDp2 = new DateTime("1996-09-13");
 
-                $p1 = new Student("Plouploux", "Stanislas", $bDp1, "BAC ES");
-                $p2 = new Student("Super", "Man", $bDp2, "BAC L");
+                $p1 = new Student("Plouploux", "Stanislas", $bDp1, "BAC ES", "Henri Wallon");
+                $p2 = new Student("Super", "Man", $bDp2, "BAC L", "Robert Schuman");
 
                 var_dump($p1, $p2);
                 ?>
@@ -159,11 +167,14 @@
 
             <?php
 
-            $date = new DateTime();
-            $bDp1 = new DateTime("1992-06-05");
-            $diff = date_diff($date, $bDp1);
+            // $bDp1 = new DateTime("1992-06-05");
+            // $date = new DateTime();
+            // $diff = $date->diff($dBp1);
 
+            // echo $diff->format('');
 
+            echo $p1->gimmeYourAge(). "<br>";
+            echo $p2->gimmeYourAge();
 
 
             ?>
