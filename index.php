@@ -1,3 +1,109 @@
+<?php
+
+class Student {
+    // --------------------------
+    // Statics
+    // --------------------------
+
+    private static string $dateFormat = "Y-m-d";
+    private static string $introduction = "Bonjour, je m'appelle ##firstname## ##lastname##, j'ai ##age## ans et je vais à l'école ##school## en class de ##grade##.";
+
+    public static function getDateFormat():string {
+        return self::$dateFormat;
+    }
+    public static function setDateFormat(string $dateFormat):void {
+        self::$dateFormat = $dateFormat;
+    }
+
+    public static function getIntroduction():string {
+        return self::$introduction;
+    }
+    public static function setIntroduction(string $introduction):void {
+        self::$introduction = $introduction;
+    }
+
+
+
+    // --------------------------
+    // Instances
+    // --------------------------
+
+    private string $lastname;
+    private string $firstname;
+    private DateTime $birthdate;
+    private string $grade;
+    private string $school;
+
+    public function __construct(string $lastname, string $firstname, DateTime $birthdate, string $grade) {
+        $this->lastname = $lastname;
+        $this->firstname = $firstname;
+        $this->birthdate = $birthdate;
+        $this->grade = $grade;
+        $this->school = "";
+    }
+
+    // Getters and Setters
+
+    public function getLastname():string {
+        return $this->lastname;
+    }
+    public function setLastname(string $lastname):void {
+        $this->lastname = $lastname;
+    }
+
+    public function getFirstname():string {
+        return $this->firstname;
+    }
+    public function setFirstname(string $firstname):void {
+        $this->firstname = $firstname;
+    }
+
+    public function getGrade():string {
+        return $this->grade;
+    }
+    public function setGrade(string $grade):void {
+        $this->grade = $grade;
+    }
+
+    public function getBirthdate():DateTime {
+        return $this->birthdate;
+    }
+    public function setBirthdate(DateTime $birthdate):void {
+        $this->birthdate = $birthdate;
+    }
+
+    public function getSchool():string {
+        return $this->school;
+    }
+    public function setSchool(string $school):void {
+        $this->school = $school;
+    }
+
+    // Methods
+
+    public function showBirthdate():string {
+        return $this->getBirthdate()->format(self::getDateFormat());
+    }
+
+    public function getAge():int {
+        // return $this->birthdate->diff(new DateTime())->format("%y");
+        return $this->birthdate->diff(new DateTime())->y;
+    }
+
+    public function introduceMySelf():string {
+        $search = [
+            "firstname" => $this->getFirstname(),
+            "lastname" => $this->getLastname(),
+            "age" => $this->getAge(),
+            "school" => $this->getSchool(),
+            "grade" => $this->getGrade()
+        ];
+        return str_replace(array_map(fn($s)=>"##$s##", array_keys($search)), array_values($search), self::getIntroduction());
+    }
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +130,7 @@
                 </ul>
             </nav>
         </header>
-
+        
         <!-- QUESTION 1 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 1</h2>
@@ -36,85 +142,16 @@
                 Créer 2 étudiants différents.
             </p>
             <div class="exercice-sandbox">
+            <?php
 
-                <?php
-                class Student
-                {
-                    private string $lastname;
-                    private string $firstname;
-                    // private int $age;
-                    private DateTime $birthDate;
-                    private string $lvlSchool;
-                    private string $schoolName;
+            $samir = new Student("Damoui", "Samir", new DateTime("2006-08-11"), "1ère");
+            $sophie = new Student("Lunima", "Sophie", new DateTime("2010-05-12"), "5ème");
 
-                    public function __construct(string $lastname, string $firstname, DateTime $birthDate, string $lvlSchool, string $schoolName)
-                    {
-                        $this->lastname = $lastname;
-                        $this->firstname = $firstname;
-                        $this->birthDate = $birthDate;
-                        $this->lvlSchool = $lvlSchool;
-                        $this->schoolName = $schoolName;
-                    }
-
-                    public function getLastname(): string {
-                        return $this->lastname;
-                    }
-                    public function setLastname(string $lastname): void
-                    {
-                        $this->lastname = $lastname;
-                    }
-
-                    public function getFirstname(): string {
-                        return $this->firstname;
-                    }
-                    public function setFirstname(string $firstname): void {
-                        $this->firstname = $firstname;
-                    }
-
-                    public function getBirthDate(): DateTime {
-                        return $this->birthDate;
-                    }
-                    public function setBirthDate(DateTime $birthDate): void
-                    {
-                        $this->birthDate = $birthDate;
-                    }
-
-                    public function getLvlSchool(): string {
-                        return $this->lvlSchool;
-                    }
-                    public function setLvlSchool(string $lvlSchool): void
-                    {
-                        $this->lvlSchool = $lvlSchool;
-                    }
-
-                    public function gimmeYourAge():int {
-                        return $this->birthDate->diff(new DateTime())->format("%Y");
-                    }
-
-                    public function getSchoolName():string {
-                        return $this->schoolName;
-                    }
-                    public function setSchoolName(string $schoolName):void {
-                        $this->schoolName = $schoolName;
-                    }
-
-                    public function getText():string {
-                    return "Bonjour, je m'appelle ".$this->firstname." j'ai ".$this->gimmeYourAge()." ans et je vais à l'école ".$this->getSchoolName()." en class de " .$this->getLvlSchool();
-                    }
-                }
-
-                $bDp1 = new DateTime("1992-06-05");
-                $bDp2 = new DateTime("1996-09-13");
-
-                $p1 = new Student("Plouploux", "Stanislas", $bDp1, "BAC ES", "Henri Wallon");
-                $p2 = new Student("Super", "Man", $bDp2, "BAC L", "Robert Schuman");
-
-                var_dump($p1, $p2);
-                ?>
-
+            var_dump($samir, $sophie);
+            ?>
             </div>
         </section>
-
+        
         <!-- QUESTION 2 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 2</h2>
@@ -124,18 +161,17 @@
                 Modifier le niveau scolaire des 2 élèves et les afficher.
             </p>
             <div class="exercice-sandbox">
+            <?php
 
-                <?php
-                $p1->setLvlSchool('CM2');
-                echo $p1->getLvlSchool() . "<br>";
+            $samir->setGrade("2nde");
+            $sophie->setGrade("4ème");
+            echo $samir->getFirstname()." : ".$samir->getGrade()."<br>";
+            echo $sophie->getFirstname()." : ".$sophie->getGrade();
 
-                $p2->setLvlSchool('Neige');
-                echo $p2->getLvlSchool();
-                ?>
-
+            ?>
             </div>
         </section>
-
+        
         <!-- QUESTION 3 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 3</h2>
@@ -145,20 +181,22 @@
                 Mettez à jour l'instanciation des 2 élèves et afficher leur date de naissance.
             </p>
             <div class="exercice-sandbox">
-
             <?php
-            
-            // echo $bDp1->format("Y-m-d") . "<br>";
-            // echo $bDp2->format("Y-m-d");
-            
-            echo $p1->getBirthDate()->format("Y-m-d"). "<br>";
-            echo $p2->getBirthDate()->format("Y-m-d");
+            // echo $samir->getBirthdate()->format("l j F Y")."<br>";
+            // echo $sophie->getBirthdate()->format("l j F Y");
+
+            echo $samir->getFirstname()." : ".$samir->showBirthdate()."<br>";
+            echo $sophie->getFirstname()." : ".$sophie->showBirthdate()."<br>";
+
+            Student::setDateFormat("l j F Y");
+
+            echo $samir->getFirstname()." : ".$samir->showBirthdate()."<br>";
+            echo $sophie->getFirstname()." : ".$sophie->showBirthdate()."<br>";
 
             ?>
-
             </div>
         </section>
-
+        
         <!-- QUESTION 4 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 4</h2>
@@ -168,24 +206,15 @@
                 Afficher l'âge des 2 élèves.
             </p>
             <div class="exercice-sandbox">
-
             <?php
 
-            // $bDp1 = new DateTime("1992-06-05");
-            // $date = new DateTime();
-            // $diff = $date->diff($dBp1);
-
-            // echo $diff->format('');
-
-            echo $p1->gimmeYourAge(). "<br>";
-            echo $p2->gimmeYourAge();
-
+            echo $samir->getFirstname()." : ".$samir->getAge()."<br>";
+            echo $sophie->getFirstname()." : ".$sophie->getAge()."<br>";
 
             ?>
-
             </div>
         </section>
-
+        
         <!-- QUESTION 5 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 5</h2>
@@ -195,17 +224,17 @@
                 Ajouter la propriété et ajouter la donnée sur les élèves.
             </p>
             <div class="exercice-sandbox">
-
             <?php
-            
-            echo $p1->getSchoolName(). "<br>";
-            echo $p2->getSchoolName()
 
+            $samir->setSchool("Ecole André Malraux");
+            $sophie->setSchool("Ecole Saint Charles");
+
+            echo $samir->getFirstname()." : ".$samir->getSchool()."<br>";
+            echo $sophie->getFirstname()." : ".$sophie->getSchool()."<br>";
             ?>
-
             </div>
         </section>
-
+        
         <!-- QUESTION 6 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 6</h2>
@@ -216,20 +245,14 @@
                 Afficher la phrase de présentation des 2 élèves.
             </p>
             <div class="exercice-sandbox">
-
-            <?php
-
-                echo $p1->getText(). "<br>";
-                echo $p2->getText();
-            
-
-            ?>
-
+                <?php
+                    echo $samir->introduceMySelf()."<br>";
+                    echo $sophie->introduceMySelf()."<br>";
+                ?>
             </div>
         </section>
 
     </div>
     <div class="copyright">© Guillaume Belleuvre, 2022 - DWWM Le Havre</div>
 </body>
-
 </html>
