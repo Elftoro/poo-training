@@ -1,47 +1,91 @@
 <?php
+
 class Teacher
 {
-    private string $lastname;
-    private string $firstname;
-    private string $schoolName;
-    private array $subject;
+    public string $lastname;
+    public string $firstname;
+    public array $subjects;
+    public string $school;
 
-    public function __construct(string $lastname, string $firstname, string $schoolName = "", array $subject = [])
+    public function __construct(string $lastname, string $firstname, array $subjects = [], string $school = "")
     {
         $this->lastname = $lastname;
         $this->firstname = $firstname;
-        $this->schoolName = $schoolName;
-        $this->subject = $subject;
+        $this->subjects = $subjects;
+        $this->school = $school;
     }
 
-    public function getLastname(): string {
+    // Getters and Setters
+
+    public function getLastname(): string
+    {
         return $this->lastname;
     }
-    public function setLastname(string $lastname): void {
+    public function setLastname(string $lastname)
+    {
         $this->lastname = $lastname;
     }
 
-    public function getFirstname(): string {
+    public function getFirstname(): string
+    {
         return $this->firstname;
     }
-    public function setFirstname(string $firstname): void {
+    public function setFirstname(string $firstname)
+    {
         $this->firstname = $firstname;
     }
 
-    public function getSchoolName(): string {
-        return $this->schoolName;
+    public function getSubjects(): array
+    {
+        return $this->subjects;
     }
-    public function setSchoolName(string $schoolName): void {
-        $this->schoolName = $schoolName;
+    public function setSubjects(array $subjects)
+    {
+        $this->subjects = $subjects;
     }
 
-    public function getSubject(): array {
-        return $this->Subject;
+    public function getSchool(): string
+    {
+        return $this->school;
     }
-    public function setSubject(array $subject): void {
-        $this->subject = $subject;
+    public function setSchool(string $school)
+    {
+        $this->school = $school;
+    }
+
+    // Methods
+
+    public function addSubject(string $subject): void
+    {
+        if (in_array($subject, $this->subjects)) return;
+        $this->subjects[] = $subject;
+    }
+
+    public function removeSubject(string $subject): void
+    {
+        // unset($this->subjects[array_search($subject, $this->subjects)]);
+        $this->subjects = array_filter($this->subjects, fn ($s) => $s !== $subject);
+    }
+
+    public function getSubjectsToString(): string
+    {
+        return implode(", ", $this->getSubjects());
+    }
+
+    public function introduceMySelf(): string
+    {
+        $replace = [
+            "lastname" => $this->getLastname(),
+            "firstname" => $this->getFirstname(),
+            "subjects" => $this->getSubjectsToString(),
+            "school" => $this->getSchool()
+        ];
+        $template = "Bonjour, je m'appelle ##firstname## ##lastname## et j'enseigne à l'école ##school## les matières suivantes : ##subjects##.";
+        return str_replace(array_map(fn ($v) => "##$v##", array_keys($replace)), array_values($replace), $template);
     }
 }
+
+
 ?>
 
 
@@ -86,8 +130,9 @@ class Teacher
             <div class="exercice-sandbox">
 
                 <?php
-                $archimede = new Teacher("Gallifrey", "Archimède", "Gustave Eiffel", ["Lettres", "Arts", "Création et Technologies"]);
-                $merlin = new Teacher("L'enchanteur", "Merlin", "Poudlard", ["Magie noire", "Astronomie", "Potions", "Botanique"]);
+                $archimede = new Teacher("Gallifrey", "Archimède");
+                $merlin = new Teacher("L'enchanteur", "Merlin", ["Astronomie", "Magie Noire", "Botanique"], "Dralduop");
+
                 var_dump($archimede, $merlin);
                 ?>
 
@@ -107,6 +152,16 @@ class Teacher
             </p>
             <div class="exercice-sandbox">
 
+                <?php
+
+                $archimede->setSchool("Victor Hugo");
+                $merlin->setSchool("Durmstrang");
+                echo $archimede->getFirstname() . " : " . $archimede->getSchool() . "<br>";
+                echo $merlin->getFirstname() . " : " . $merlin->getSchool();
+
+
+                ?>
+
             </div>
         </section>
 
@@ -120,6 +175,20 @@ class Teacher
                 Tester l'ajout, la suppression et l'affichage sur chacun des profs.
             </p>
             <div class="exercice-sandbox">
+
+                <?php
+
+                $archimede->addSubject("Lettres");
+                $archimede->addSubject("Art");
+                $archimede->addSubject("Création et Technologies");
+                echo $archimede->getFirstname() . " : " . $archimede->getSubjectsToString() . "<br>";
+
+                $archimede->removeSubject("Art");
+                echo $archimede->getFirstname() . " : " . $archimede->getSubjectsToString() . "<br>";
+
+                echo $merlin->getFirstname() . " : " . $merlin->getSubjectsToString() . "<br>";
+
+                ?>
 
             </div>
         </section>
@@ -135,6 +204,12 @@ class Teacher
                 Afficher la phrase de présentation des 2 profs.
             </p>
             <div class="exercice-sandbox">
+
+            <?php 
+            echo $archimede->introduceMySelf()."<br>";
+            echo $merlin->introduceMySelf()."<br>";
+
+            ?>
 
             </div>
         </section>
