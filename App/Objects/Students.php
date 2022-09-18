@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Objects;
-
-class Student {
+use DateTime;
+class Students extends Person {
     // --------------------------
     // Statics
     // --------------------------

@@ -1,6 +1,7 @@
 <?php
 
 use App\Objects\Students;
+require_once "App/Objects/Students.php"
 
 ?>
 
@@ -44,8 +45,8 @@ use App\Objects\Students;
             <div class="exercice-sandbox">
             <?php
 
-            $samir = new Student("Damoui", "Samir", new DateTime("2006-08-11"), "1ère");
-            $sophie = new Student("Lunima", "Sophie", new DateTime("2010-05-12"), "5ème");
+            $samir = new Students("Damoui", "Samir", new DateTime("2006-08-11"), "1ère");
+            $sophie = new Students("Lunima", "Sophie", new DateTime("2010-05-12"), "5ème");
 
             var_dump($samir, $sophie);
             ?>
@@ -88,7 +89,7 @@ use App\Objects\Students;
             echo $samir->getFirstname()." : ".$samir->showBirthdate()."<br>";
             echo $sophie->getFirstname()." : ".$sophie->showBirthdate()."<br>";
 
-            Student::setDateFormat("l j F Y");
+            Students::setDateFormat("l j F Y");
 
             echo $samir->getFirstname()." : ".$samir->showBirthdate()."<br>";
             echo $sophie->getFirstname()." : ".$sophie->showBirthdate()."<br>";
