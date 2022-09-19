@@ -1,3 +1,12 @@
+<?php
+spl_autoload_register();
+
+use App\Objects\School;
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,6 +43,17 @@
                 Créer 2 écoles et afficher leurs proprités.
             </p>
             <div class="exercice-sandbox">
+
+            <?php
+
+            $s1 = new School("L'école des poulpes", "Plouxploux'Land");
+            $s2 = new School("Saint-Joseph", "Marly-Gomont");
+
+            echo "Première école : " . $s1->getName() . ", à : " . $s1->getCity() . ". <br>";
+            echo "Seconde école : " . $s2->getName() . ", à : " . $s2->getCity() . ". <br>";
+
+
+            ?>
                 
             </div>
         </section>

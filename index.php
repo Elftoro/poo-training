@@ -1,9 +1,10 @@
 <?php
+spl_autoload_register();
 
-use App\Objects\Students;
-require_once "App/Objects/Students.php"
+use App\Objects\Student;
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,8 +46,8 @@ require_once "App/Objects/Students.php"
             <div class="exercice-sandbox">
             <?php
 
-            $samir = new Students("Damoui", "Samir", new DateTime("2006-08-11"), "1ère");
-            $sophie = new Students("Lunima", "Sophie", new DateTime("2010-05-12"), "5ème");
+            $samir = new Student("Damoui", "Samir", new DateTime("2006-08-11"), "1ère");
+            $sophie = new Student("Lunima", "Sophie", new DateTime("2010-05-12"), "5ème");
 
             var_dump($samir, $sophie);
             ?>
@@ -89,7 +90,7 @@ require_once "App/Objects/Students.php"
             echo $samir->getFirstname()." : ".$samir->showBirthdate()."<br>";
             echo $sophie->getFirstname()." : ".$sophie->showBirthdate()."<br>";
 
-            Students::setDateFormat("l j F Y");
+            Student::setDateFormat("l j F Y");
 
             echo $samir->getFirstname()." : ".$samir->showBirthdate()."<br>";
             echo $sophie->getFirstname()." : ".$sophie->showBirthdate()."<br>";

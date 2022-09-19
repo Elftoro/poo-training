@@ -1,6 +1,11 @@
-<?php 
-use App\Objects\Teachers;
+<?php
+spl_autoload_register();
+
+use App\Objects\Teacher;
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,8 +47,8 @@ use App\Objects\Teachers;
             <div class="exercice-sandbox">
 
                 <?php
-                $archimede = new Teachers("Gallifrey", "Archimède");
-                $merlin = new Teachers("L'enchanteur", "Merlin", ["Astronomie", "Magie Noire", "Botanique"], "Dralduop");
+                $archimede = new Teacher("Gallifrey", "Archimède");
+                $merlin = new Teacher("L'enchanteur", "Merlin", ["Astronomie", "Magie Noire", "Botanique"], "Dralduop");
 
                 var_dump($archimede, $merlin);
                 ?>
