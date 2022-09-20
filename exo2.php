@@ -1,12 +1,12 @@
 <?php
 spl_autoload_register();
 
+use App\Objects\ElementarySchool;
+use App\Objects\HighSchool;
+use App\Objects\SecondarySchool;
 use App\Objects\Teacher;
 
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +33,7 @@ use App\Objects\Teacher;
                 </ul>
             </nav>
         </header>
-
+        
         <!-- QUESTION 1 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 1</h2>
@@ -45,18 +45,17 @@ use App\Objects\Teacher;
                 Créer 2 professeurs différents.
             </p>
             <div class="exercice-sandbox">
-
                 <?php
-                $archimede = new Teacher("Gallifrey", "Archimède");
-                $merlin = new Teacher("L'enchanteur", "Merlin", ["Astronomie", "Magie Noire", "Botanique"], "Dralduop");
 
-                var_dump($archimede, $merlin);
+                $paul = new Teacher("Mourin", "Paul");
+                $elise = new Teacher("Sdiam", "Elise", ["Mathématiques"], new ElementarySchool("Ecole Saint Exupéry", "Hazebrook"));
+
+                var_dump($paul, $elise);
                 ?>
-
             </div>
         </section>
-
-
+        
+        
         <!-- QUESTION 2 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 2</h2>
@@ -68,21 +67,17 @@ use App\Objects\Teacher;
                 Afficher les écoles des 2 professeurs.
             </p>
             <div class="exercice-sandbox">
+            <?php
+            $paul->setSchool(new SecondarySchool("Ecole Sainte Julie", "Quebec"));
+            $elise->setSchool(new HighSchool("Ecole Trucmuche", "Lyon"));
 
-                <?php
-
-                $archimede->setSchool("Victor Hugo");
-                $merlin->setSchool("Durmstrang");
-                echo $archimede->getFirstname() . " : " . $archimede->getSchool() . "<br>";
-                echo $merlin->getFirstname() . " : " . $merlin->getSchool();
-
-
-                ?>
-
+            echo $paul->getFirstname()." : ".$paul->getSchool()->getName()."<br>"; 
+            echo $elise->getFirstname()." : ".$elise->getSchool()->getName()."<br>"; 
+            ?>
             </div>
         </section>
-
-
+        
+        
         <!-- QUESTION 3 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 3</h2>
@@ -92,21 +87,18 @@ use App\Objects\Teacher;
                 Tester l'ajout, la suppression et l'affichage sur chacun des profs.
             </p>
             <div class="exercice-sandbox">
+            <?php
 
-                <?php
+            $paul->addSubject("Musique");
+            $paul->addSubject("Français");
+            echo $paul->getFirstname()." : ".$paul->getSubjectsToString()."<br>";
+            
+            $paul->removeSubject("Français");
+            echo $paul->getFirstname()." : ".$paul->getSubjectsToString()."<br>";
 
-                $archimede->addSubject("Lettres");
-                $archimede->addSubject("Art");
-                $archimede->addSubject("Création et Technologies");
-                echo $archimede->getFirstname() . " : " . $archimede->getSubjectsToString() . "<br>";
+            echo $elise->getFirstname()." : ".$elise->getSubjectsToString()."<br>";
 
-                $archimede->removeSubject("Art");
-                echo $archimede->getFirstname() . " : " . $archimede->getSubjectsToString() . "<br>";
-
-                echo $merlin->getFirstname() . " : " . $merlin->getSubjectsToString() . "<br>";
-
-                ?>
-
+            ?>
             </div>
         </section>
 
@@ -121,18 +113,66 @@ use App\Objects\Teacher;
                 Afficher la phrase de présentation des 2 profs.
             </p>
             <div class="exercice-sandbox">
+            <?php
 
-            <?php 
-            echo $archimede->introduceMySelf()."<br>";
-            echo $merlin->introduceMySelf()."<br>";
-
+            echo $paul->introduceMySelf()."<br>";
+            echo $elise->introduceMySelf()."<br>";
             ?>
-
             </div>
         </section>
 
     </div>
     <div class="copyright">© Guillaume Belleuvre, 2022 - DWWM Le Havre</div>
 </body>
-
 </html>
+
+<?php
+spl_autoload_register();
+
+use App\Views\Question;
+use App\Views\Page;
+
+$pageContent = '';
+
+$q1 = new Question([
+    'number' => 1,
+    'question' => "Créer une classe permettant de créer des professeurs ayant un nom, un prénom, une liste des matières qu'il enseigne et le nom de l'école où il enseigne.
+    Définir toutes les propriétés à l'instanciation en rendant la liste des matières et le nom de lécole faculative.
+    Créer 2 professeurs différents.",
+    'answer' => ''
+]);
+$pageContent .= $q1->getHtml();
+
+$q2 = new Question([
+    'number' => 2,
+    'question' => "Créer les getters et les setters permettant de gérer toutes les propriétés des professeurs.
+    Modifier les écoles des 2 professeurs.
+    Afficher les écoles des 2 professeurs.",
+    'answer' => ''
+]);
+$pageContent .= $q2->getHtml();
+
+$q3 = new Question([
+    'number' => 3,
+    'question' => "Créer les méthodes permettant d'ajouter une matière, de retirer une matière et d'afficher la liste des matières d'un prof.
+    Tester l'ajout, la suppression et l'affichage sur chacun des profs.",
+    'answer' => ''
+]);
+$pageContent .= $q3->getHtml();
+
+$q4 = new Question([
+    'number' => 4,
+    'question' => "Donner la possibilité aux professeurs de se présenter en affichant la phrase suivante :<br>
+    'Bonjour, je m'appelle XXX XXX et j'enseigne à l'école XXX les matières suivantes : XXX, XXX, XXX.'.
+    Afficher la phrase de présentation des 2 profs.",
+    'answer' => ''
+]);
+$pageContent .= $q4->getHtml();
+
+$view = new Page([
+    'title' => 'POO - Des vues',
+    'headerTitle' => 'POO - Des vues',
+    'content' => $pageContent
+]);
+
+$view->display();

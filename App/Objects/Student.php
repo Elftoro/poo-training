@@ -10,7 +10,7 @@ class Student extends Person {
     // --------------------------
 
     private static string $dateFormat = "Y-m-d";
-    protected static string $introduction = "Bonjour, je m'appelle ##firstname## ##lastname##, j'ai ##age## ans et je vais à l'école ##school## en class de ##grade##.";
+    protected static string $introduction = "Bonjour, je m'appelle ##firstname## ##lastname##, j'ai ##age## ans et je vais à l'école ##school## en classe de ##grade##.";
 
     public static function getDateFormat():string {
         return self::$dateFormat;
@@ -28,7 +28,7 @@ class Student extends Person {
     private string $grade;
 
     public function __construct(string $lastname, string $firstname, DateTime $birthdate, string $grade) {
-        parent::__construct($firstname, $lastname, "");
+        parent::__construct($firstname, $lastname);
         $this->birthdate = $birthdate;
         $this->grade = $grade;
     }
@@ -65,7 +65,7 @@ class Student extends Person {
             'firstname' => $this->getFirstname(),
             'lastname' => $this->getLastname(),
             'age' => $this->getAge(),
-            'school' => $this->getSchool(),
+            'school' => $this->getSchool()->getName(),
             'grade' => $this->getGrade()
         ]);
     }

@@ -3,7 +3,8 @@
 namespace App\Objects;
 
 class HighSchool extends School {
-    public array $levels = ["Seconde", "Première", "Terminale"];
-}
+    protected static array $grades = ['2nde', '1ère', 'Terminale'];
 
-?>
+
+
+}
